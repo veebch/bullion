@@ -1,0 +1,7 @@
+display:
+  inverted: false
+api:
+  apikey: <Insert your metals-api.com apikey here>
+ticker:
+  currency: BTC,ETH,XAU,XAG,XPT
+  fiatcurrency: USD
