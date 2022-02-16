@@ -1,7 +1,7 @@
 display:
   inverted: false
 api:
-  apikey: <Insert your alpha vantage apikey here>
+  apikey: <Insert your twelvedata.com apikey here>
 ticker:
   currency: BTC,ETH,XAU,XAG,XPT
   fiatcurrency: USD
