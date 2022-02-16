@@ -1,7 +1,9 @@
 display:
   inverted: false
 api:
-  apikey: <Insert your twelvedata.com apikey here>
+  apikey: <insert twelvedata.com apikey>
 ticker:
   currency: BTC,ETH,XAU,XAG,XPT
   fiatcurrency: USD
+  timezone: Europe/Zurich
+  refreshtime: 300
