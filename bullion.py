@@ -26,8 +26,8 @@ def makeSpark(pricestack):
     themean= sum(pricestack)/float(len(pricestack))
     x = [xx - themean for xx in pricestack]
     fig, ax = plt.subplots(1,1,figsize=(10,3))
-    plt.plot(x, color='k', linewidth=6)
-    plt.plot(len(x)-1, x[-1], color=128, marker='o')
+    plt.plot(x, color=0, linewidth=6)
+    plt.plot(len(x)-1, x[-1], color=.2, marker='o')
     # Remove the Y axis
     for k,v in ax.spines.items():
         v.set_visible(False)
