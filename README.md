@@ -2,7 +2,7 @@
 
 # Bullion - Spot prices for metal
 
-An ePaper Cryptocurrency price ticker that runs as a Python script on a Raspberry Pi connected to a [Waveshare 2.7 inch monochrome ePaper display](https://www.waveshare.com/wiki/2.7inch_e-Paper_HAT). The script periodically (every 5 mins by default) takes data from CoinGecko and prints a summary to the ePaper.
+An ePaper Cryptocurrency price ticker that runs as a Python script on a Raspberry Pi connected to a [Waveshare 2.7 inch monochrome ePaper display](https://www.waveshare.com/wiki/2.7inch_e-Paper_HAT). The script periodically (every 5 mins by default) takes data from [Alpha Vantage](https://www.alphavantage.co/) and prints a summary to the ePaper.
 
 
 # Getting started
@@ -92,13 +92,9 @@ ticker:
 
 ## Values
 
-- **cycle**: switch the display between the listed currencies if set to **true**, display only the first on the list if set to **false**
 - **inverted**: Black text on grey background if **false**. Grey text on black background if **true**
-- **orientation**: Screen rotation in degrees , can take values **0,90,180,270**
-- **trendingmode**: If **true**, it checks the 7 coins that coingecko lists as trending and also displays them (names are included in display)
 - **currency**: the coin(s) you would like to display (must be the coingecko id)
 - **fiatcurrency**: currently only uses first one (unless you are cycling with buttons)
-- **sparklinedays**: Number of days of historical data appearing on chart
 - **updatefrequency**: (in seconds), how often to refresh the display
 
 
