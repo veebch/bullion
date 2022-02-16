@@ -68,7 +68,7 @@ def updateDisplay(pricestack,fiat,symbolnow):
     draw = ImageDraw.Draw(image)
     draw.text((110,90),"1 day : "+pricechange,font =font_date,fill = 0)
     writewrappedlines(image, pricestring,50,55,8,15,"Roboto-Medium" )
-    _place_text(image,symbolnow,-80,-30,30,"Roboto-Medium",128)
+    _place_text(image,symbolnow,-80,-30,40,"Roboto-Medium",128)
     image.paste(sparkbitmap,(90,40))
     draw.text((95,15),timestamp,font =font_date,fill = 0)
 #   Return the ticker image
@@ -123,24 +123,28 @@ refreshtime=float(config['ticker']['refreshtime'])/60
 apikey=config['api']['apikey']
 datapoints=20*24
 
-for symbolnow in symbollist:
-    fullsymbol=symbolnow+'/'+fiatcurrency
-    print(fullsymbol)
-    td = TDClient(apikey=apikey)
-    # Construct the necessary time series
-    ts = td.time_series(
-        symbol=fullsymbol,
-        interval="5min",
-        outputsize=datapoints,
-        timezone=timezone,
-    )
+try:
+    while True:
+        for symbolnow in symbollist:
+            fullsymbol=symbolnow+'/'+fiatcurrency
+            print(fullsymbol)
+            td = TDClient(apikey=apikey)
+            # Construct the necessary time series
+            ts = td.time_series(
+                symbol=fullsymbol,
+                interval="5min",
+                outputsize=datapoints,
+                timezone=timezone,
+            )
 
-    csvts = ts.as_json()
-    pricestack=[]
-    for i in range(1,datapoints):
-        pricestack.append(float(csvts[i]['close']))
-    flipit=pricestack[::-1]
-    makeSpark(flipit)
-    image=updateDisplay(flipit,fiatcurrency,symbolnow)
-    display_image(image)
-    time.sleep(refreshtime)
+            csvts = ts.as_json()
+            pricestack=[]
+            for i in range(1,datapoints):
+                pricestack.append(float(csvts[i]['close']))
+            flipit=pricestack[::-1]
+            makeSpark(flipit)
+            image=updateDisplay(flipit,fiatcurrency,symbolnow)
+            display_image(image)
+            time.sleep(refreshtime)
+else:
+    print('The wheels fell off')
