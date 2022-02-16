@@ -8,9 +8,11 @@ from waveshare_epd import epd2in7
 from babel import Locale
 from babel.numbers import decimal, format_currency, format_scientific
 
+dirname = os.path.dirname(__file__)
 picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
 fontdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fonts')
 configfile = os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.yaml')
+font_date = ImageFont.truetype(os.path.join(fontdir,'PixelSplitter-Bold.ttf'),11)
 
 def currencystringtolist(currstring):
     # Takes the string for currencies in the config.yaml file and turns it into a list
