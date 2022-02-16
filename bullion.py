@@ -209,7 +209,6 @@ def updateDisplay(config,pricestack,other):
         # looks like you have a coin with a tiny value per coin, drop the font size, not ideal but better than just printing SHITCOIN
         pricestring = format_currency(pricenow, fiat.upper(),locale=localetag, decimal_quantization=False)
         fontreduce=15
-
     image = Image.new('L', (264,176), 255)    # 255: clear the image with white
     draw = ImageDraw.Draw(image)
     if other['ATH']==True:
@@ -260,11 +259,11 @@ def fullupdate(config,lastcoinfetch):
     """
     other={}
     try:
-        pricestack, ATH = getData(config, other)
+        pricestack= getData(config)
         # generate sparkline
         makeSpark(pricestack)
         # update display
-        image=updateDisplay(config, pricestack, other)
+        image=updateDisplay(config, pricestack)
         display_image(image)
         lastgrab=time.time()
         time.sleep(0.2)
