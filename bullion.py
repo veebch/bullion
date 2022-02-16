@@ -64,6 +64,39 @@ def updateDisplay(pricestack):
 #   Return the ticker image
     return image
 
+def _place_text(img, text, x_offset=0, y_offset=0,fontsize=40,fontstring="Forum-Regular", fill=0):
+    '''
+    Put some centered text at a location on the image.
+    '''
+    draw = ImageDraw.Draw(img)
+    try:
+        filename = os.path.join(dirname, './fonts/googlefonts/'+fontstring+'.ttf')
+        font = ImageFont.truetype(filename, fontsize)
+    except OSError:
+        font = ImageFont.truetype('/usr/share/fonts/TTF/DejaVuSans.ttf', fontsize)
+    img_width, img_height = img.size
+    text_width, _ = font.getsize(text)
+    text_height = fontsize
+    draw_x = (img_width - text_width)//2 + x_offset
+    draw_y = (img_height - text_height)//2 + y_offset
+    draw.text((draw_x, draw_y), text, font=font,fill=fill )
+
+def writewrappedlines(img,text,fontsize=16,y_text=20,height=15, width=25,fontstring="Roboto-Light"):
+    lines = textwrap.wrap(text, width)
+    numoflines=0
+    for line in lines:
+        _place_text(img, line,0, y_text, fontsize,fontstring)
+        y_text += height
+        numoflines+=1
+    return img
+
+def custom_format_currency(value, currency, locale):
+    value = decimal.Decimal(value)
+    locale = Locale.parse(locale)
+    pattern = locale.currency_formats['standard']
+    force_frac = ((0, 0) if value == int(value) else None)
+    return pattern.apply(value, locale, currency=currency, force_frac=force_frac)
+
 def display_image(img):
     epd = epd2in7.EPD()
     epd.Init_4Gray()
