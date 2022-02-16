@@ -99,7 +99,7 @@ ticker:
 - **inverted**: Black text on grey background if **false**. Grey text on black background if **true**
 - **currency**: the coin(s) you would like to display (must be the coingecko id)
 - **fiatcurrency**: currently only uses first one (unless you are cycling with buttons)
-- **updatefrequency**: (in seconds), how often to refresh the display
+- **refreshtime**: (in seconds), how often to refresh the display
 
 
 # Contributing
