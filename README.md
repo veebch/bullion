@@ -9,7 +9,7 @@ An ePaper Precious Metal/ Cryptocurrency/ Stock price ticker that runs as a Pyth
 
 ## Prerequisites
 
-An API key from twelvedata.com. They are quick to get and free for the basic plan, which is sufficient for this code. Place your key in your `config.yaml` file.
+An API key from twelvedata.com. Their free plan is sufficient for this code. Place your key in your `config.yaml` file.
 
 (These instructions assume that your Raspberry Pi is already connected to the Internet, happily running `pip` and has `python3` installed)
 
