@@ -107,9 +107,13 @@ def custom_format_currency(value, currency, locale):
     force_frac = ((0, 0) if value == int(value) else None)
     return pattern.apply(value, locale, currency=currency, force_frac=force_frac)
 
-def display_image(img):
+def display_image(img, inverted):
     epd = epd2in7.EPD()
     epd.Init_4Gray()
+    if inverted:
+        #PIL doesnt like to invert binary images, so convert to RGB, invert and then convert back to RGBA
+        img = ImageOps.invert( img.convert('RGB') )
+        img = img.convert('RGBA')
     epd.display_4Gray(epd.getbuffer_4Gray(img))
     epd.sleep()
     return
@@ -144,7 +148,7 @@ try:
             flipit=pricestack[::-1]
             makeSpark(flipit)
             image=updateDisplay(flipit,fiatcurrency,symbolnow)
-            display_image(image)
+            display_image(image,config['display']['inverted'])
             time.sleep(refreshtime)
 except:
     print('The wheels fell off')
