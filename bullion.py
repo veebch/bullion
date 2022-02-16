@@ -3,6 +3,8 @@ import time, json, os, yaml
 import matplotlib.pyplot as plt
 from PIL import Image, ImageOps
 from waveshare_epd import epd2in7
+from babel import Locale
+from babel.numbers import decimal, format_currency, 
 
 picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
 configfile = os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.yaml')
