@@ -84,13 +84,14 @@ The file `config.yaml` (the copy of `config_example.yaml` you made earlier) cont
 
 ```
 display:
-  cycle: true
   inverted: false
+api:
+  apikey: <insert twelvedata.com apikey>
 ticker:
-  currency: BTC, ETH, XAU, XAG, XPT
+  currency: BTC,ETH,XAU,XAG,XPT
   fiatcurrency: USD
-  sparklinedays: 1 
-  updatefrequency: 300
+  timezone: Europe/Zurich
+  refreshtime: 300
 ```
 
 ## Values
