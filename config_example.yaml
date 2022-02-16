@@ -1,7 +1,7 @@
 display:
   inverted: false
 api:
-  apikey: <Insert your metals-api.com apikey here>
+  apikey: <Insert your alpha vantage apikey here>
 ticker:
   currency: BTC,ETH,XAU,XAG,XPT
   fiatcurrency: USD
