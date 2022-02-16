@@ -62,6 +62,8 @@ def updateDisplay(pricestack,fiat):
     if pricenow > 10000:
         # round to nearest whole unit of currency, this is an ugly hack for now
         pricestring=custom_format_currency(int(pricenow), fiat.upper(), localetag)
+    else:
+        pricestring = format_currency(pricenow, fiat.upper(),locale=localetag, decimal_quantization=False)
     image = Image.new('L', (264,176), 255)    # 255: clear the image with white
     draw = ImageDraw.Draw(image)
     draw.text((110,90),"1 day : "+pricechange,font =font_date,fill = 0)
@@ -77,7 +79,7 @@ def _place_text(img, text, x_offset=0, y_offset=0,fontsize=40,fontstring="Forum-
     '''
     draw = ImageDraw.Draw(img)
     try:
-        filename = os.path.join(dirname, './fonts/googlefonts/'+fontstring+'.ttf')
+        filename = os.path.join(dirname, './fonts/'+fontstring+'.ttf')
         font = ImageFont.truetype(filename, fontsize)
     except OSError:
         font = ImageFont.truetype('/usr/share/fonts/TTF/DejaVuSans.ttf', fontsize)
@@ -88,7 +90,7 @@ def _place_text(img, text, x_offset=0, y_offset=0,fontsize=40,fontstring="Forum-
     draw_y = (img_height - text_height)//2 + y_offset
     draw.text((draw_x, draw_y), text, font=font,fill=fill )
 
-def writewrappedlines(img,text,fontsize=16,y_text=20,height=15, width=25,fontstring="Roboto-Light"):
+def writewrappedlines(img,text,fontsize=16,y_text=20,height=15, width=25,fontstring="Roboto-Medium"):
     lines = textwrap.wrap(text, width)
     numoflines=0
     for line in lines:
