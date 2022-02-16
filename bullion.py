@@ -63,7 +63,7 @@ def updateDisplay(pricestack,fiat):
         # round to nearest whole unit of currency, this is an ugly hack for now
         pricestring=custom_format_currency(int(pricenow), fiat.upper(), localetag)
     else:
-        pricestring = format_currency(pricenow, fiat.upper(),locale=localetag, decimal_quantization=False)
+        pricestring = format_currency(pricenow, fiat.upper(),locale=localetag, decimal_quantization=True)
     image = Image.new('L', (264,176), 255)    # 255: clear the image with white
     draw = ImageDraw.Draw(image)
     draw.text((110,90),"1 day : "+pricechange,font =font_date,fill = 0)
