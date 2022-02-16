@@ -31,15 +31,18 @@ Now clone the required software (Waveshare libraries and this script)
 ```
 cd ~
 git clone https://github.com/waveshare/e-Paper
-git clone https://github.com/veebch/btcticker.git
+git clone https://github.com/veebch/bullion.git
 ```
 Move to the `btcticker` directory, copy the example config to `config.yaml` and move the required part of the waveshare directory to the `btcticker` directory
 ```
-cd btcticker
+cd bullion
 cp config_example.yaml config.yaml
 cp -r /home/pi/e-Paper/RaspberryPi_JetsonNano/python/lib/waveshare_epd .
 rm -rf /home/pi/e-Paper
 ```
+
+You will need an API key from twelvedata.com. Their free plan is sufficient for this code. Place your key in your `config.yaml` file.
+
 Install the required Python3 modules
 ```
 python3 -m pip install -r requirements.txt
