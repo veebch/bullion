@@ -2,11 +2,14 @@ from twelvedata import TDClient
 import time, json, os, yaml
 import matplotlib.pyplot as plt
 from PIL import Image, ImageOps
+from PIL import ImageFont
+from PIL import ImageDraw
 from waveshare_epd import epd2in7
 from babel import Locale
 from babel.numbers import decimal, format_currency, format_scientific
 
 picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
+fontdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fonts')
 configfile = os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.yaml')
 
 def currencystringtolist(currstring):
