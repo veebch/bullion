@@ -45,7 +45,7 @@ def makeSpark(pricestack):
     imgspk.close()
     return
 
-def updateDisplay(pricestack,fiat):
+def updateDisplay(pricestack,fiat,symbolnow):
     pricenow = pricestack[-1]
     sparkbitmap = Image.open(os.path.join(picdir,'spark.bmp'))
     pricechangeraw = round((pricestack[-1]-pricestack[0])/pricestack[-1]*100,2)
@@ -68,6 +68,7 @@ def updateDisplay(pricestack,fiat):
     draw = ImageDraw.Draw(image)
     draw.text((110,90),"1 day : "+pricechange,font =font_date,fill = 0)
     writewrappedlines(image, pricestring,50,55,8,15,"Roboto-Medium" )
+    _place_text(image,symbolnow)
     image.paste(sparkbitmap,(80,40))
     draw.text((95,15),timestamp,font =font_date,fill = 0)
 #   Return the ticker image
@@ -140,6 +141,6 @@ for symbolnow in symbollist:
         pricestack.append(float(csvts[i]['close']))
     flipit=pricestack[::-1]
     makeSpark(flipit)
-    image=updateDisplay(flipit,fiatcurrency)
+    image=updateDisplay(flipit,fiatcurrency,symbolnow)
     display_image(image)
     time.sleep(refreshtime)
