@@ -38,7 +38,7 @@ def makeSpark(pricestack):
     imgspk.close()
     return
 
-def updateDisplay(pricestack):
+def updateDisplay(pricestack,fiat):
     pricenow = pricestack[-1]
     sparkbitmap = Image.open(os.path.join(picdir,'spark.bmp'))
     pricechangeraw = round((pricestack[-1]-pricestack[0])/pricestack[-1]*100,2)
@@ -131,6 +131,6 @@ for symbolnow in symbollist:
         pricestack.append(float(csvts[i]['close']))
     flipit=pricestack[::-1]
     makeSpark(flipit)
-    image=updateDisplay(flipit)
+    image=updateDisplay(flipit,fiatcurrency)
     display_image(image)
     time.sleep(refreshtime)
