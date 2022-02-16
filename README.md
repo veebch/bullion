@@ -9,8 +9,6 @@ An ePaper Precious Metal/ Cryptocurrency/ Stock price ticker that runs as a Pyth
 
 ## Prerequisites
 
-An API key from twelvedata.com. Their free plan is sufficient for this code. Place your key in your `config.yaml` file.
-
 (These instructions assume that your Raspberry Pi is already connected to the Internet, happily running `pip` and has `python3` installed)
 
 If you are running the Pi headless, connect to your Raspberry Pi using `ssh`.
@@ -42,6 +40,9 @@ cp config_example.yaml config.yaml
 cp -r /home/pi/e-Paper/RaspberryPi_JetsonNano/python/lib/waveshare_epd .
 rm -rf /home/pi/e-Paper
 ```
+
+You will need an API key from twelvedata.com. Their free plan is sufficient for this code. Place your key in your `config.yaml` file.
+
 Install the required Python3 modules
 ```
 python3 -m pip install -r requirements.txt
