@@ -146,5 +146,5 @@ try:
             image=updateDisplay(flipit,fiatcurrency,symbolnow)
             display_image(image)
             time.sleep(refreshtime)
-else:
+except:
     print('The wheels fell off')
