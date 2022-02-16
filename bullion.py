@@ -1,5 +1,5 @@
 from twelvedata import TDClient
-import time, json, os, yaml
+import time, json, os, yaml, textwrap
 import matplotlib.pyplot as plt
 from PIL import Image, ImageOps
 from PIL import ImageFont
