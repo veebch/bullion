@@ -119,7 +119,7 @@ with open(configfile) as f:
 symbollist=currencystringtolist(config['ticker']['currency'])
 fiatcurrency=config['ticker']['fiatcurrency']
 timezone=config['ticker']['timezone']
-refreshtime=float(config['ticker']['refreshtime'])/60
+refreshtime=float(config['ticker']['refreshtime'])
 apikey=config['api']['apikey']
 datapoints=20*24
 
