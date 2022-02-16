@@ -48,14 +48,14 @@ python3 -m pip install -r requirements.txt
 ## Add Autostart
 
 ```
-cat <<EOF | sudo tee /etc/systemd/system/btcticker.service
+cat <<EOF | sudo tee /etc/systemd/system/bullion.service
 [Unit]
-Description=btcticker
+Description=bullion
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -u /home/pi/btcticker/btcticker.py
-WorkingDirectory=/home/pi/btcticker/
+ExecStart=/usr/bin/python3 -u /home/pi/bullion/bullion.py
+WorkingDirectory=/home/pi/bullion/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
@@ -67,8 +67,8 @@ EOF
 ```
 Now, simply enable the service you just made and reboot
 ```  
-sudo systemctl enable btcticker.service
-sudo systemctl start btcticker.service
+sudo systemctl enable bullion.service
+sudo systemctl start bullion.service
 
 sudo reboot
 ```
