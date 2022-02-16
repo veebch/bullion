@@ -7,6 +7,12 @@ from waveshare_epd import epd2in7
 picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
 configfile = os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.yaml')
 
+def currencystringtolist(currstring):
+    # Takes the string for currencies in the config.yaml file and turns it into a list
+    curr_list = currstring.split(",")
+    curr_list = [x.strip(' ') for x in curr_list]
+    return curr_list
+
 def makeSpark(pricestack):
     # Draw and save the sparkline that represents historical data
     # Subtract the mean from the sparkline to make the mean appear on the plot (it's really the x axis)
@@ -48,7 +54,7 @@ def display_image():
 
 with open(configfile) as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
-symbollist=config['ticker']['currency']
+symbollist=currencystringtolist(config['ticker']['currency'])
 fiatcurrency=config['ticker']['fiatcurrency']
 timezone=config['ticker']['timezone']
 refreshtime=float(config['ticker']['refreshtime'])/60
