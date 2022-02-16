@@ -68,7 +68,7 @@ def updateDisplay(pricestack,fiat,symbolnow):
     draw = ImageDraw.Draw(image)
     draw.text((110,90),"1 day : "+pricechange,font =font_date,fill = 0)
     writewrappedlines(image, pricestring,50,55,8,15,"Roboto-Medium" )
-    _place_text(image,symbolnow)
+    _place_text(image,symbolnow,-50,-20,30,"Roboto-Medium",128)
     image.paste(sparkbitmap,(80,40))
     draw.text((95,15),timestamp,font =font_date,fill = 0)
 #   Return the ticker image
