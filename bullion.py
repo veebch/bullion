@@ -62,7 +62,7 @@ def updateDisplay(pricestack,fiat):
         pricestring=custom_format_currency(int(pricenow), fiat.upper(), localetag)
     image = Image.new('L', (264,176), 255)    # 255: clear the image with white
     draw = ImageDraw.Draw(image)
-    draw.text((110,90),str(days_ago)+" day : "+pricechange,font =font_date,fill = 0)
+    draw.text((110,90),"1 day : "+pricechange,font =font_date,fill = 0)
     writewrappedlines(image, pricestring,50,55,8,15,"Roboto-Medium" )
     image.paste(sparkbitmap,(80,40))
     draw.text((95,15),timestamp,font =font_date,fill = 0)
