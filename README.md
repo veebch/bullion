@@ -1,3 +1,3 @@
 # Bullion
 
-A divergence from the cryptoticker
+Code for an epaper price ticker for metals and the core cryptocurrencies
