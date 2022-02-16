@@ -57,6 +57,7 @@ datapoints=20*24
 
 for symbolnow in symbollist:
     fullsymbol=symbolnow+'/'+fiatcurrency
+    print(fullsymbol)
     td = TDClient(apikey=apikey)
     # Construct the necessary time series
     ts = td.time_series(
@@ -75,4 +76,3 @@ for symbolnow in symbollist:
     image=updateDisplay(config, flipit)
     display_image(image)
     time.sleep(refreshtime)
-
