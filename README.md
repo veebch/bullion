@@ -84,21 +84,22 @@ The file `config.yaml` (the copy of `config_example.yaml` you made earlier) cont
 
 ```
 display:
-  cycle: true
   inverted: false
+api:
+  apikey: <insert twelvedata.com apikey>
 ticker:
-  currency: BTC, ETH, XAU, XAG, XPT
+  currency: BTC,ETH,XAU,XAG,XPT
   fiatcurrency: USD
-  sparklinedays: 1 
-  updatefrequency: 300
+  timezone: Europe/Zurich
+  refreshtime: 300
 ```
 
 ## Values
 
 - **inverted**: Black text on grey background if **false**. Grey text on black background if **true**
-- **currency**: the coin(s) you would like to display (must be the coingecko id)
-- **fiatcurrency**: currently only uses first one (unless you are cycling with buttons)
-- **updatefrequency**: (in seconds), how often to refresh the display
+- **currency**: the symbols you would like to display (must be the twelvedata symbol name )
+- **fiatcurrency**: currently only uses first one
+- **refreshtime**: (in seconds), how often to refresh the display
 
 
 # Contributing
