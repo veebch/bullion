@@ -86,7 +86,7 @@ def updateDisplay(pricestack,fiat,symbolnow):
     draw.line((0,116,264,116), fill=128, width=1)
     writewrappedlines(image, pricestring,50,53,8,15,"Roboto-Medium" )
     image.paste(typeimage, (10,10))
-    image.paste(sparkbitmap,(90,40))
+    image.paste(sparkbitmap,(90,30))
     fontreduction=30-(len(symbolnow)-3)*5 # longer symbol, smaller font
     _place_text(image,symbolnow,-80,10,fontreduction,"Roboto-Medium",0)
     draw.text((95,15),timestamp,font =font_date,fill = 0)
