@@ -25,8 +25,8 @@ def makeSpark(pricestack):
     # Subtract the mean from the sparkline to make the mean appear on the plot (it's really the x axis)
     themean= sum(pricestack)/float(len(pricestack))
     x = [xx - themean for xx in pricestack]
-    fig, ax = plt.subplots(1,1,figsize=(10,3))
-    plt.plot(x, color='0', linewidth=3)
+    fig, ax = plt.subplots(1,1,figsize=(10,4))
+    plt.plot(x, color='0', linewidth=4)
     plt.plot(len(x)-1, x[-1], color='.4', marker='o')
     # Remove the Y axis
     for k,v in ax.spines.items():
@@ -82,7 +82,7 @@ def updateDisplay(pricestack,fiat,symbolnow):
         pricestring = format_currency(pricenow, fiat.upper(),locale=localetag, decimal_quantization=True)
     image = Image.new('L', (264,176), 255)    # 255: clear the image with white
     draw = ImageDraw.Draw(image)
-    draw.text((120,90),"1 day : "+pricechange,font =font_date,fill = 0)
+    draw.text((120,100),"1 day : "+pricechange,font =font_date,fill = 0)
     draw.line((0,116,264,116), fill=128, width=1)
     writewrappedlines(image, pricestring,50,53,8,15,"Roboto-Medium" )
     image.paste(typeimage, (10,10))
