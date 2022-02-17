@@ -151,5 +151,10 @@ try:
             image=updateDisplay(flipit,fiatcurrency,symbolnow)
             display_image(image,config['display']['inverted'])
             time.sleep(refreshtime)
-except:
-    print('The wheels fell off')
+except IOError as e:
+        print(str(e)+" Line: "+str(e.__traceback__.tb_lineno))
+except IOError as e:
+        print(str(e)+" Line: "+str(e.__traceback__.tb_lineno))
+except KeyboardInterrupt:
+        print('Keyboard Interrupt')
+
