@@ -45,15 +45,24 @@ def makeSpark(pricestack):
     imgspk.close()
     return
 
-def updateDisplay(pricestack,fiat,symbolnow):
-    pricenow = pricestack[-1]
-    sparkbitmap = Image.open(os.path.join(picdir,'spark.bmp'))
-
-    typethumbnail= 'bullion.bmp'
+def thumbnailtype(symbol):
+    if symbol in ['XAG','XAU','XPT','XPD','XG']:
+        typethumbnail= 'bullion.bmp'
+    elif symbol in ['BTC','ETH']:
+        typethumnail= symbol+'.bmp'
+    else:
+        typethumbnail='default.bmp'
     typefilename = os.path.join(picdir,typethumbnail)
     typeimage = Image.open(typefilename).convert("RGBA")
     resize = 80,80
     typeimage.thumbnail(resize, Image.ANTIALIAS)
+    return typeimage
+
+def updateDisplay(pricestack,fiat,symbolnow):
+    pricenow = pricestack[-1]
+    sparkbitmap = Image.open(os.path.join(picdir,'spark.bmp'))
+
+    typeimage = thumbnailtype(symbolnow)
 
     pricechangeraw = round((pricestack[-1]-pricestack[0])/pricestack[-1]*100,2)
     if pricechangeraw >= 10:
