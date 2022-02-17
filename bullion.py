@@ -54,7 +54,7 @@ def thumbnailtype(symbol):
         typethumbnail='default.bmp'
     typefilename = os.path.join(picdir,typethumbnail)
     typeimage = Image.open(typefilename).convert("RGBA")
-    resize = 80,80
+    resize = 70,70
     typeimage.thumbnail(resize, Image.ANTIALIAS)
     return typeimage
 
