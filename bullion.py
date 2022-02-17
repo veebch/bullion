@@ -49,7 +49,7 @@ def thumbnailtype(symbol):
     if symbol in ['XAG','XAU','XPT','XPD','XG']:
         typethumbnail= 'bullion.bmp'
     elif symbol in ['BTC','ETH']:
-        typethumnail= symbol+'.bmp'
+        typethumbnail= symbol+'.bmp'
     else:
         typethumbnail='default.bmp'
     typefilename = os.path.join(picdir,typethumbnail)
