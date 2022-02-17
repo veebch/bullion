@@ -87,7 +87,7 @@ def updateDisplay(pricestack,fiat,symbolnow):
     image.paste(typeimage, (10,10))
     image.paste(sparkbitmap,(90,40))
     fontreduction=30-(len(symbolnow)-3)*5 # longer symbol, smaller font
-    _place_text(image,symbolnow,-75,5,fontreduction,"Roboto-Medium",0)
+    _place_text(image,symbolnow,-80,10,fontreduction,"Roboto-Medium",0)
     draw.text((95,15),timestamp,font =font_date,fill = 0)
 #   Return the ticker image
     return image
