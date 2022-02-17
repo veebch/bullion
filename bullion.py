@@ -52,6 +52,8 @@ def updateDisplay(pricestack,fiat,symbolnow):
     typethumbnail= 'bullion.bmp'
     typefilename = os.path.join(picdir,typethumbnail)
     typeimage = Image.open(typefilename).convert("RGBA")
+    resize = 100,100
+    typeimage.thumbnail(resize, Image.ANTIALIAS)
 
     pricechangeraw = round((pricestack[-1]-pricestack[0])/pricestack[-1]*100,2)
     if pricechangeraw >= 10:
