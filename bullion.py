@@ -48,6 +48,11 @@ def makeSpark(pricestack):
 def updateDisplay(pricestack,fiat,symbolnow):
     pricenow = pricestack[-1]
     sparkbitmap = Image.open(os.path.join(picdir,'spark.bmp'))
+
+    typethumbnail= 'bullion.bmp'
+    typefilename = os.path.join(picdir,typethumbnail)
+    typeimage = Image.open(typefilename).convert("RGBA")
+
     pricechangeraw = round((pricestack[-1]-pricestack[0])/pricestack[-1]*100,2)
     if pricechangeraw >= 10:
         pricechange = str("%+d" % pricechangeraw)+"%"
@@ -68,6 +73,7 @@ def updateDisplay(pricestack,fiat,symbolnow):
     draw = ImageDraw.Draw(image)
     draw.text((110,90),"1 day : "+pricechange,font =font_date,fill = 0)
     writewrappedlines(image, pricestring,50,50,8,15,"Roboto-Medium" )
+    image.paste(tokenimage, (10,25))
     image.paste(sparkbitmap,(90,40))
     fontreduction=40-(len(symbolnow)-3)*5 # longer symbol, smaller font
     _place_text(image,symbolnow,-70,-30,fontreduction,"Roboto-Medium",0)
