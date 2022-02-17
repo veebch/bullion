@@ -82,13 +82,13 @@ def updateDisplay(pricestack,fiat,symbolnow):
         pricestring = format_currency(pricenow, fiat.upper(),locale=localetag, decimal_quantization=True)
     image = Image.new('L', (264,176), 255)    # 255: clear the image with white
     draw = ImageDraw.Draw(image)
-    draw.text((120,100),"1 day : "+pricechange,font =font_date,fill = 0)
     draw.line((0,116,264,116), fill=128, width=1)
     writewrappedlines(image, pricestring,50,53,8,15,"Roboto-Medium" )
     image.paste(typeimage, (10,10))
     image.paste(sparkbitmap,(90,30))
     fontreduction=30-(len(symbolnow)-3)*5 # longer symbol, smaller font
     _place_text(image,symbolnow,-80,10,fontreduction,"Roboto-Medium",0)
+    draw.text((120,95),"1 day : "+pricechange,font =font_date,fill = 0)
     draw.text((100,15),timestamp,font =font_date,fill = 0)
 #   Return the ticker image
     return image
