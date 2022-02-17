@@ -48,7 +48,7 @@ def makeSpark(pricestack):
 def thumbnailtype(symbol):
     if symbol in ['XAG','XAU','XPT','XPD','XG']:
         typethumbnail= 'bullion.bmp'
-    elif symbol in ['BTC','ETH']:
+    elif symbol in ['BTC','ETH','XRP','LTC','BNB','BCH']:
         typethumbnail= symbol+'.bmp'
     else:
         typethumbnail='default.bmp'
@@ -82,7 +82,7 @@ def updateDisplay(pricestack,fiat,symbolnow):
         pricestring = format_currency(pricenow, fiat.upper(),locale=localetag, decimal_quantization=True)
     image = Image.new('L', (264,176), 255)    # 255: clear the image with white
     draw = ImageDraw.Draw(image)
-    draw.text((110,90),"1 day : "+pricechange,font =font_date,fill = 0)
+    draw.text((120,90),"1 day : "+pricechange,font =font_date,fill = 0)
     writewrappedlines(image, pricestring,50,50,8,15,"Roboto-Medium" )
     image.paste(typeimage, (10,10))
     image.paste(sparkbitmap,(90,40))
