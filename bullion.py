@@ -52,7 +52,7 @@ def updateDisplay(pricestack,fiat,symbolnow):
     typethumbnail= 'bullion.bmp'
     typefilename = os.path.join(picdir,typethumbnail)
     typeimage = Image.open(typefilename).convert("RGBA")
-    resize = 100,100
+    resize = 80,80
     typeimage.thumbnail(resize, Image.ANTIALIAS)
 
     pricechangeraw = round((pricestack[-1]-pricestack[0])/pricestack[-1]*100,2)
@@ -78,7 +78,7 @@ def updateDisplay(pricestack,fiat,symbolnow):
     image.paste(typeimage, (10,5))
     image.paste(sparkbitmap,(90,40))
     fontreduction=40-(len(symbolnow)-3)*5 # longer symbol, smaller font
-    _place_text(image,symbolnow,-70,-30,fontreduction,"Roboto-Medium",0)
+    _place_text(image,symbolnow,-70,10,fontreduction,"Roboto-Medium",0)
     draw.text((95,15),timestamp,font =font_date,fill = 0)
 #   Return the ticker image
     return image
