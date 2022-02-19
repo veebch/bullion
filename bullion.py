@@ -148,7 +148,7 @@ def display_image(img, inverted):
     return
 
 def main():
-    logging.basicConfig(level='info')
+    logging.basicConfig(level='INFO')
     with open(configfile) as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
     symbollist=currencystringtolist(config['ticker']['currency'])
