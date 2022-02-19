@@ -34,7 +34,7 @@ def makeSpark(pricestack):
     # Subtract the mean from the sparkline to make the mean appear on the plot (it's really the x axis)
     themean= sum(pricestack)/float(len(pricestack))
     x = [xx - themean for xx in pricestack]
-    fig, ax = plt.subplots(1,1,figsize=(10,4))
+    fig, ax = plt.subplots(1,1,figsize=(10,3))
     plt.plot(x, color='0', linewidth=4)
     plt.plot(len(x)-1, x[-1], color='.4', marker='o')
     # Remove the Y axis
@@ -67,7 +67,7 @@ def thumbnailtype(symbol):
     typeimage.thumbnail(resize, Image.ANTIALIAS)
     return typeimage
 
-def updateDisplay(pricestack,symbolnow,config):
+def updateDisplay(pricestack,symbolnow,config, comparitor):
     pricenow = pricestack[-1]
     fiat=config['ticker']['fiatcurrency']
     sparkbitmap = Image.open(os.path.join(picdir,'spark.bmp'))
@@ -78,7 +78,7 @@ def updateDisplay(pricestack,symbolnow,config):
     if pricechangeraw >= 10:
         pricechange = str("%+d" % pricechangeraw)+"%"
     else:
-        pricechange = str("%+.2f" % pricechangeraw)+"%"
+        pricechange = str("%+.1f" % pricechangeraw)+"%"
     if '24h' in config['display'] and config['display']['24h']:
         timestamp= str(time.strftime("%-H:%M, %d %b %Y"))
     else:
@@ -98,7 +98,7 @@ def updateDisplay(pricestack,symbolnow,config):
     image.paste(sparkbitmap,(90,30))
     fontreduction=30-(len(symbolnow)-3)*5 # longer symbol, smaller font
     _place_text(image,symbolnow,-75,5,fontreduction,"Roboto-Medium",0)
-    draw.text((120,95),"1 day : "+pricechange,font =font_date,fill = 0)
+    draw.text((120,95),"1 day "+pricechange,font =font_date,fill = 0)
     draw.text((100,15),timestamp,font =font_date,fill = 0)
 #   Return the ticker image
     return image
@@ -148,6 +148,7 @@ def display_image(img, inverted):
     return
 
 def main():
+    logging.basicConfig(level='info')
     with open(configfile) as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
     symbollist=currencystringtolist(config['ticker']['currency'])
@@ -156,7 +157,7 @@ def main():
     refreshtime=float(config['ticker']['refreshtime'])
     apikey=config['api']['apikey']
     datapoints=20*24                                                        # The 5 minute sparkline interval is hardcoded for now, it may be overkill...480 points for a tiny plot 
-
+    comparitor={}                                                           # Initialise what may be used for comparison (only for Precious Metals for now)
     try:
         while True:
             for symbolnow in symbollist:
@@ -172,25 +173,36 @@ def main():
                     outputsize=datapoints,
                     timezone=timezone,
                 )
+                jsonts = ts.as_json()                                       # Get the time series for the last day (every 5 minutes) in json format
 
                 if symbolnow in ['XAG','XAU','XPT','XPD','XG']:             # This addition is due to feedback from the good people of the Reddit Gold sub
                     logging.info('This is a Precious Metal, get a comparitor')
                     if symbol=='XAU':
-                        silversymbol='XAG/'+fiatcurrency
-                        labelratio='AU:AG'
-                        logging.info(labelratio)
+                        comparesymbol='XAG/'+fiatcurrency
+                        labelratio='AU/AG'
                     else:
-                        goldsymbol='XAU/'+fiatcurrency
-                        labelratio=symbolnow[1:] +':AU'
-                        logging.info(labelratio)
+                        comparesymbol='XAU/'+fiatcurrency
+                        labelratio=symbolnow[1:] +'/AU'
+                    logging.info(labelratio)
+                    tscompare = td.time_series(                                        
+                        symbol=comparesymbol,
+                        interval="5min",
+                        outputsize=datapoints,
+                        timezone=timezone,
+                    )
+                    jsontscompare=tscompare.as_json()
+                    if symbol=='XAU':
+                        ratio=jsonts[datapoints]['close']/jsontscompare[datapoints]['close'] # AU/AG
+                    else:
+                        ratio=jsontscompare[datapoints]['close']/jsontscompare[datapoints]['close'] # x/AU
+                    comparitor = {labelratio:ratio}
 
-                csvts = ts.as_json()                                        # Get the time series for the last day (every 5 minutes) in json format
                 pricestack=[]
                 for i in range(1,datapoints):
-                    pricestack.append(float(csvts[i]['close']))             # Put the data into an array
+                    pricestack.append(float(jsonts[i]['close']))            # Put the data into an array
                 flipit=pricestack[::-1]                                     # Reverse that data to get it in the right order
                 makeSpark(flipit)                                           # Make the sparkline graph that will go onscreen
-                image=updateDisplay(flipit,symbolnow,config)   # Make the whole display screen
+                image=updateDisplay(flipit,symbolnow,config,comparitor)                # Make the whole screen image to be displayed
                 display_image(image,config['display']['inverted'])          # Display it
                 time.sleep(refreshtime)                                     # Sleep until the user has chosen to repfresh (in config file)
     except IOError as e:
