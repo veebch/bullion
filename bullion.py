@@ -98,11 +98,11 @@ def updateDisplay(pricestack,symbolnow,config, comparitor):
     image.paste(sparkbitmap,(90,30))
     fontreduction=30-(len(symbolnow)-3)*5 # longer symbol, smaller font
     _place_text(image,symbolnow,-75,5,fontreduction,"Roboto-Medium",0)
-    draw.text((120,85),"1 day "+pricechange,font =font_date,fill = 0)
+    draw.text((120,83),"1 day \t\t"+pricechange,font =font_date,fill = 0)
     if bool(comparitor):
         labelcomparitor = list(comparitor)[0]
-        valuecomparitor = str("%+.1f" % float(list(comparitor.values())[0]))
-        draw.text((120,95),labelcomparitor+" "+valuecomparitor,font =font_date,fill = 0)
+        valuecomparitor = " "+str("% .2f \t\t" % float(list(comparitor.values())[0]))
+        draw.text((120,97),labelcomparitor+" "+valuecomparitor,font =font_date,fill = 0)
     draw.text((100,15),timestamp,font =font_date,fill = 0)
 #   Return the ticker image
     return image
@@ -160,11 +160,11 @@ def main():
     timezone=config['ticker']['timezone']
     refreshtime=float(config['ticker']['refreshtime'])
     apikey=config['api']['apikey']
-    datapoints=20*24                                                        # The 5 minute sparkline interval is hardcoded for now, it may be overkill...480 points for a tiny plot 
-    comparitor={}                                                           # Initialise what may be used for comparison (only for Precious Metals for now)
+    datapoints=20*24                                                        # The 5 minute sparkline interval is hardcoded for now, it may be overkill...480 points for a tiny plot                                                            # Initialise what may be used for comparison (only for Precious Metals for now)
     try:
         while True:
             for symbolnow in symbollist:
+                comparitor={} 
                 fullsymbol=symbolnow+'/'+fiatcurrency                       # This is required for metals and currencies, it may not display if combo doesn't exist at twelvedata eg XPT/GBP
                                                                             # If this is going to be used for stocks, this should be done outside the loop and currencies and metals will be appended
                                                                             # to a list of unaltered share names
@@ -181,7 +181,7 @@ def main():
 
                 if symbolnow in ['XAG','XAU','XPT','XPD','XG']:             # This addition is due to feedback from the good people of the Reddit Gold sub
                     logging.info('This is a Precious Metal, get a comparitor')
-                    if symbol=='XAU':
+                    if symbolnow=='XAU':
                         comparesymbol='XAG/'+fiatcurrency
                         labelratio='AU/AG'
                     else:
@@ -195,10 +195,7 @@ def main():
                         timezone=timezone,
                     )
                     jsontscompare=tscompare.as_json()
-                    if symbol=='XAU':
-                        ratio=jsonts[datapoints]['close']/jsontscompare[datapoints]['close'] # AU/AG
-                    else:
-                        ratio=jsontscompare[datapoints]['close']/jsontscompare[datapoints]['close'] # x/AU
+                    ratio=float(jsonts[datapoints-1]['close'])/float(jsontscompare[datapoints-1]['close']) # x/(AG or AU) where x is gold or some other PM
                     comparitor = {labelratio:ratio}
 
                 pricestack=[]
