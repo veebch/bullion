@@ -1,5 +1,14 @@
+#!/usr/bin/python3
+#
+#   This is a fork of the btcticker with a focus on metals. Data supplied by https://twelvedata.com via their python module
+#   Shares and crypto are also possible, but if you're only sticking to crypto, there is more flexibility in
+#   https://github.com/veebch/btcticker
+#   
+#   TO DO:  GSR on gold screen, xGR for all other metals (x)
+#           Add shares category to config file and add logic to pull company logos (low priority)
+#
 from twelvedata import TDClient
-import time, json, os, yaml, textwrap
+import time, json, os, yaml, textwrap, logging
 import matplotlib.pyplot as plt
 from PIL import Image, ImageOps
 from PIL import ImageFont
@@ -137,42 +146,58 @@ def display_image(img, inverted):
     epd.sleep()
     return
 
-with open(configfile) as f:
-    config = yaml.load(f, Loader=yaml.FullLoader)
-symbollist=currencystringtolist(config['ticker']['currency'])
-fiatcurrency=config['ticker']['fiatcurrency']
-timezone=config['ticker']['timezone']
-refreshtime=float(config['ticker']['refreshtime'])
-apikey=config['api']['apikey']
-datapoints=20*24
+def main():
+    with open(configfile) as f:
+        config = yaml.load(f, Loader=yaml.FullLoader)
+    symbollist=currencystringtolist(config['ticker']['currency'])
+    fiatcurrency=config['ticker']['fiatcurrency']
+    timezone=config['ticker']['timezone']
+    refreshtime=float(config['ticker']['refreshtime'])
+    apikey=config['api']['apikey']
+    datapoints=20*24                                                # The 5 minute sparkline interval is hardcoded for now, it may be overkill...480 points for a tiny plot 
 
-try:
-    while True:
-        for symbolnow in symbollist:
-            fullsymbol=symbolnow+'/'+fiatcurrency
-            print(fullsymbol)
-            td = TDClient(apikey=apikey)
-            # Construct the necessary time series
-            ts = td.time_series(
-                symbol=fullsymbol,
-                interval="5min",
-                outputsize=datapoints,
-                timezone=timezone,
-            )
+    try:
+        while True:
+            for symbolnow in symbollist:
+                fullsymbol=symbolnow+'/'+fiatcurrency               # This is required for metals and currencies, it may not display if combo doesn't exist at twelvedata eg XPT/GBP
+                                                                    # If this is going to be used for stocks, this should be done outside the loop and currencies and metals will be appended
+                                                                    # to a list of unaltered share names
+                logging.info(fullsymbol)
+                td = TDClient(apikey=apikey)
+                # Construct the necessary time series
+                ts = td.time_series(                                # Not getting data in a batch because we want it to be up-to-date (ie pulled at refresh)
+                    symbol=fullsymbol,
+                    interval="5min",
+                    outputsize=datapoints,
+                    timezone=timezone,
+                )
 
-            csvts = ts.as_json()
-            pricestack=[]
-            for i in range(1,datapoints):
-                pricestack.append(float(csvts[i]['close']))
-            flipit=pricestack[::-1]
-            makeSpark(flipit)
-            image=updateDisplay(flipit,fiatcurrency,symbolnow)
-            display_image(image,config['display']['inverted'])
-            time.sleep(refreshtime)
-except IOError as e:
-        print(str(e)+" Line: "+str(e.__traceback__.tb_lineno))
-except IOError as e:
-        print(str(e)+" Line: "+str(e.__traceback__.tb_lineno))
-except KeyboardInterrupt:
-        print('Keyboard Interrupt')
+                if symbolnow in ['XAG','XAU','XPT','XPD','XG']:     # This slightly clunkily-coded addition is due to feedback from the good people of the Reddit Gold sub
+                    logging.info('This is a Precious Metal, get a comparitor')
+                    if symbol=='XAU':
+                        silversymbol='XAG/'+fiatcurrency
+                        labelratio='AU:AG'
+                        logging.info(labelratio)
+                    else:
+                        goldsymbol='XAU/'+fiatcurrency
+                        labelratio=symbolnow[1:] +':AU'
+                        logging.info(labelratio)
 
+                csvts = ts.as_json()                                # Get the time series for the last day (every 5 minutes) in json format
+                pricestack=[]
+                for i in range(1,datapoints):
+                    pricestack.append(float(csvts[i]['close']))     # Put the data into an array
+                flipit=pricestack[::-1]                             # Reverse that data to get it in the right order
+                makeSpark(flipit)                                   # Make the sparkline graph that will go onscreen
+                image=updateDisplay(flipit,fiatcurrency,symbolnow)  # Make the whole display screen
+                display_image(image,config['display']['inverted'])  # Display it
+                time.sleep(refreshtime)                             # Sleep until the user has chosen to repfresh (in config file)
+    except IOError as e:
+            logging.info(str(e)+" Line: "+str(e.__traceback__.tb_lineno))
+    except IOError as e:
+            logging.info(str(e)+" Line: "+str(e.__traceback__.tb_lineno))
+    except KeyboardInterrupt:
+            logging.info('Keyboard Interrupt')
+
+if __name__ == '__main__':
+    main()
