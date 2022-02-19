@@ -67,8 +67,9 @@ def thumbnailtype(symbol):
     typeimage.thumbnail(resize, Image.ANTIALIAS)
     return typeimage
 
-def updateDisplay(pricestack,fiat,symbolnow):
+def updateDisplay(pricestack,symbolnow,config):
     pricenow = pricestack[-1]
+    fiat=config['ticker']['fiatcurrency']
     sparkbitmap = Image.open(os.path.join(picdir,'spark.bmp'))
 
     typeimage = thumbnailtype(symbolnow)
@@ -154,25 +155,25 @@ def main():
     timezone=config['ticker']['timezone']
     refreshtime=float(config['ticker']['refreshtime'])
     apikey=config['api']['apikey']
-    datapoints=20*24                                                # The 5 minute sparkline interval is hardcoded for now, it may be overkill...480 points for a tiny plot 
+    datapoints=20*24                                                        # The 5 minute sparkline interval is hardcoded for now, it may be overkill...480 points for a tiny plot 
 
     try:
         while True:
             for symbolnow in symbollist:
-                fullsymbol=symbolnow+'/'+fiatcurrency               # This is required for metals and currencies, it may not display if combo doesn't exist at twelvedata eg XPT/GBP
-                                                                    # If this is going to be used for stocks, this should be done outside the loop and currencies and metals will be appended
-                                                                    # to a list of unaltered share names
+                fullsymbol=symbolnow+'/'+fiatcurrency                       # This is required for metals and currencies, it may not display if combo doesn't exist at twelvedata eg XPT/GBP
+                                                                            # If this is going to be used for stocks, this should be done outside the loop and currencies and metals will be appended
+                                                                            # to a list of unaltered share names
                 logging.info(fullsymbol)
                 td = TDClient(apikey=apikey)
                 # Construct the necessary time series
-                ts = td.time_series(                                # Not getting data in a batch because we want it to be up-to-date (ie pulled at refresh)
+                ts = td.time_series(                                        # Not getting data in a batch because we want it to be up-to-date (ie pulled at refresh)
                     symbol=fullsymbol,
                     interval="5min",
                     outputsize=datapoints,
                     timezone=timezone,
                 )
 
-                if symbolnow in ['XAG','XAU','XPT','XPD','XG']:     # This slightly clunkily-coded addition is due to feedback from the good people of the Reddit Gold sub
+                if symbolnow in ['XAG','XAU','XPT','XPD','XG']:             # This addition is due to feedback from the good people of the Reddit Gold sub
                     logging.info('This is a Precious Metal, get a comparitor')
                     if symbol=='XAU':
                         silversymbol='XAG/'+fiatcurrency
@@ -183,15 +184,15 @@ def main():
                         labelratio=symbolnow[1:] +':AU'
                         logging.info(labelratio)
 
-                csvts = ts.as_json()                                # Get the time series for the last day (every 5 minutes) in json format
+                csvts = ts.as_json()                                        # Get the time series for the last day (every 5 minutes) in json format
                 pricestack=[]
                 for i in range(1,datapoints):
-                    pricestack.append(float(csvts[i]['close']))     # Put the data into an array
-                flipit=pricestack[::-1]                             # Reverse that data to get it in the right order
-                makeSpark(flipit)                                   # Make the sparkline graph that will go onscreen
-                image=updateDisplay(flipit,fiatcurrency,symbolnow)  # Make the whole display screen
-                display_image(image,config['display']['inverted'])  # Display it
-                time.sleep(refreshtime)                             # Sleep until the user has chosen to repfresh (in config file)
+                    pricestack.append(float(csvts[i]['close']))             # Put the data into an array
+                flipit=pricestack[::-1]                                     # Reverse that data to get it in the right order
+                makeSpark(flipit)                                           # Make the sparkline graph that will go onscreen
+                image=updateDisplay(flipit,symbolnow,config)   # Make the whole display screen
+                display_image(image,config['display']['inverted'])          # Display it
+                time.sleep(refreshtime)                                     # Sleep until the user has chosen to repfresh (in config file)
     except IOError as e:
             logging.info(str(e)+" Line: "+str(e.__traceback__.tb_lineno))
     except IOError as e:
