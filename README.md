@@ -4,6 +4,8 @@
 
 An ePaper Precious Metal/ Cryptocurrency/ Stock price ticker that runs as a Python script on a Raspberry Pi connected to a [Waveshare 2.7 inch monochrome ePaper display](https://www.waveshare.com/wiki/2.7inch_e-Paper_HAT). The script periodically (every 5 mins by default) takes data from [twelve data](https://www.twelvedata.com/) and prints a summary to the ePaper.
 
+In addition to the spot price, it shows GSR for gold, and the ratio to gold for all other metals.
+
 
 # Getting started
 
