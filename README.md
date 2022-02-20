@@ -110,7 +110,7 @@ To contribute, please fork the repository and use a feature branch. Pull request
 
 # Links
 
-- A fully assembled ticker or frames can be obtained at [veeb.ch](http://www.veeb.ch/)
+- A [fully configured](https://www.veeb.ch/store/p/w5exxxcog8vgv0tn4xiyw8pr31ltwp) unit or [frames](https://www.veeb.ch/store/p/ticker-enclosure) can be obtained at [veeb.ch](http://www.veeb.ch/)
 
 
 # Licencing
