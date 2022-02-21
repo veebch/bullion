@@ -4,6 +4,8 @@
 
 An ePaper Precious Metal/ Cryptocurrency/ Stock price ticker that runs as a Python script on a Raspberry Pi connected to a [Waveshare 2.7 inch monochrome ePaper display](https://www.waveshare.com/wiki/2.7inch_e-Paper_HAT). The script periodically (every 5 mins by default) takes data from [twelve data](https://www.twelvedata.com/) and prints a summary to the ePaper.
 
+In addition to the spot price, it shows the gold/silver ratio (GSR) for gold, and the ratio to gold for all other precious metals.
+
 
 # Getting started
 
@@ -78,7 +80,7 @@ sudo reboot
 
 Update frequency can be changed in the configuration file (default is 300 seconds).
 
-# Configuration via config file
+# Configuration file
 
 The file `config.yaml` (the copy of `config_example.yaml` you made earlier) contains a number of options that may be tweaked:
 
@@ -97,8 +99,10 @@ ticker:
 ## Values
 
 - **inverted**: Black text on grey background if **false**. Grey text on black background if **true**
+- **apikey**: an api key for twelvedata.com
 - **currency**: the symbols you would like to display (must be the twelvedata symbol name )
 - **fiatcurrency**: currently only uses first one
+- **timezone**: the timezone you're in
 - **refreshtime**: (in seconds), how often to refresh the display
 
 
@@ -108,7 +112,7 @@ To contribute, please fork the repository and use a feature branch. Pull request
 
 # Links
 
-- A fully assembled ticker or frames can be obtained at [veeb.ch](http://www.veeb.ch/)
+- A [fully configured unit](https://www.veeb.ch/store/p/w5exxxcog8vgv0tn4xiyw8pr31ltwp) or [custom case](https://www.veeb.ch/store/p/ticker-enclosure) can be obtained at [veeb.ch](http://www.veeb.ch/)
 
 
 # Licencing
