@@ -114,7 +114,7 @@ To contribute, please fork the repository and use a feature branch. Pull request
 
 # Links
 
-- A [fully configured unit](https://www.veeb.ch/store/p/w5exxxcog8vgv0tn4xiyw8pr31ltwp) or [custom case](https://www.veeb.ch/store/p/ticker-enclosure) can be obtained at [veeb.ch](http://www.veeb.ch/)
+- A [fully configured unit](https://www.veeb.ch/store/p/w5exxxcog8vgv0tn4xiyw8pr31ltwp) or a [custom case](https://www.veeb.ch/store/p/ticker-enclosure) can be obtained at [veeb.ch](http://www.veeb.ch/)
 
 
 # Licencing
