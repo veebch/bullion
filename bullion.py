@@ -186,7 +186,7 @@ def main():
                         labelratio='AU/AG'
                     else:
                         comparesymbol='XAU/'+fiatcurrency
-                        labelratio=symbolnow[1:] +'/AU'
+                        labelratio='AU/'+symbolnow[1:]
                     logging.info(labelratio)
                     tscompare = td.time_series(                                        
                         symbol=comparesymbol,
@@ -195,7 +195,10 @@ def main():
                         timezone=timezone,
                     )
                     jsontscompare=tscompare.as_json()
-                    ratio=float(jsonts[datapoints-1]['close'])/float(jsontscompare[datapoints-1]['close']) # x/(AG or AU) where x is gold or some other PM
+                    if symbolnow=='XAU':
+                        ratio=float(jsonts[datapoints-1]['close'])/float(jsontscompare[datapoints-1]['close']) # x/(AG) where x is gold 
+                    else:
+                        ratio=float(jsontscompare[datapoints-1]['close'])/float(jsonts[datapoints-1]['close']) # AU/x where x is gold or some other PM
                     comparitor = {labelratio:ratio}
 
                 pricestack=[]
