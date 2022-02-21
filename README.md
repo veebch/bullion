@@ -1,3 +1,5 @@
+![Action Shot](/image/bullion2.jpg)
+
 [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCz5BOU9J9pB_O0B8-rDjCWQ?label=YouTube&style=social)](https://www.youtube.com/channel/UCz5BOU9J9pB_O0B8-rDjCWQ)
 
 # Bullion - Spot prices for metal (and more)
@@ -103,7 +105,7 @@ ticker:
 - **currency**: the symbols you would like to display (must be the twelvedata symbol name )
 - **fiatcurrency**: currently only uses first one
 - **timezone**: the timezone you're in
-- **refreshtime**: (in seconds), how often to refresh the display
+- **refreshtime**: (in seconds), how often to cycle to the next price
 
 
 # Contributing
