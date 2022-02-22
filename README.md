@@ -101,7 +101,7 @@ ticker:
 ## Values
 
 - **inverted**: Black text on grey background if **false**. Grey text on black background if **true**
-- **apikey**: an api key for twelvedata.com
+- **apikey**: an api key for [twelvedata.com](twelvedata.com)
 - **currency**: the symbols you would like to display (must be the twelvedata symbol name )
 - **fiatcurrency**: currently only uses first one
 - **timezone**: the timezone you're in
