@@ -2,9 +2,9 @@
 
 [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCz5BOU9J9pB_O0B8-rDjCWQ?label=YouTube&style=social)](https://www.youtube.com/channel/UCz5BOU9J9pB_O0B8-rDjCWQ)
 
-# Bullion - Spot prices for metal (and more)
+# Bullion - Spot prices for precious metals (and more)
 
-An ePaper Precious Metal/ Cryptocurrency/ Stock price ticker that runs as a Python script on a Raspberry Pi connected to a [Waveshare 2.7 inch monochrome ePaper display](https://www.waveshare.com/wiki/2.7inch_e-Paper_HAT). The script periodically (every 5 mins by default) takes data from [twelve data](https://www.twelvedata.com/) and prints a summary to the ePaper.
+An ePaper Precious Metal/ Cryptocurrency/ Stock price ticker that runs as a Python script on a Raspberry Pi (Zero WH) connected to a [Waveshare 2.7 inch monochrome ePaper display](https://www.waveshare.com/wiki/2.7inch_e-Paper_HAT). The script periodically (every 5 mins by default) takes data from [twelve data](https://www.twelvedata.com/) and prints a summary to the ePaper.
 
 In addition to the spot price, it shows the gold/silver ratio (GSR) for gold, and the ratio to gold for all other precious metals.
 
@@ -101,8 +101,8 @@ ticker:
 ## Values
 
 - **inverted**: Black text on grey background if **false**. Grey text on black background if **true**
-- **apikey**: an api key for twelvedata.com
-- **currency**: the symbols you would like to display (must be the twelvedata symbol name )
+- **apikey**: an api key for [twelvedata.com](twelvedata.com)
+- **currency**: the symbols you would like to display (must consistent with the twelvedata naming convention)
 - **fiatcurrency**: currently only uses first one
 - **timezone**: the timezone you're in
 - **refreshtime**: (in seconds), how often to cycle to the next price
@@ -114,7 +114,7 @@ To contribute, please fork the repository and use a feature branch. Pull request
 
 # Links
 
-- A [fully configured unit](https://www.veeb.ch/store/p/w5exxxcog8vgv0tn4xiyw8pr31ltwp) or [custom case](https://www.veeb.ch/store/p/ticker-enclosure) can be obtained at [veeb.ch](http://www.veeb.ch/)
+- A [fully configured unit](https://www.veeb.ch/store/p/w5exxxcog8vgv0tn4xiyw8pr31ltwp) or a [custom case](https://www.veeb.ch/store/p/ticker-enclosure) can be obtained at [veeb.ch](http://www.veeb.ch/)
 
 
 # Licencing
