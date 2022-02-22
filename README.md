@@ -102,7 +102,7 @@ ticker:
 
 - **inverted**: Black text on grey background if **false**. Grey text on black background if **true**
 - **apikey**: an api key for [twelvedata.com](twelvedata.com)
-- **currency**: the symbols you would like to display (must be the twelvedata symbol name )
+- **currency**: the symbols you would like to display (must consistent with the twelvedata naming convention)
 - **fiatcurrency**: currently only uses first one
 - **timezone**: the timezone you're in
 - **refreshtime**: (in seconds), how often to cycle to the next price
