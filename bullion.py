@@ -14,6 +14,7 @@ from PIL import Image, ImageOps
 from PIL import ImageFont
 from PIL import ImageDraw
 from waveshare_epd import epd2in7
+# from waveshare_epd import epd2in7_V2 as epd2in7 #(comment out line above and uncomment this line if you're using v2). 
 from babel import Locale
 from babel.numbers import decimal, format_currency, format_scientific
 
